@@ -7,18 +7,18 @@ import time
 
 BASE_DIR = os.path.dirname(__file__)
 print("[INFO] BASE DIR: ", BASE_DIR)
-print("[INFO] loading face detector...")
+print("[INFO] Loading face detector...")
 protoPath = os.path.join(BASE_DIR, "face_detection_model/deploy.prototxt")
 modelPath = os.path.join(BASE_DIR, "face_detection_model/res10_300x300_ssd_iter_140000.caffemodel")
 detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 embedding_model = os.path.join(BASE_DIR, 'openface_nn4.small2.v1.t7')
-print("[INFO] loading face recognizer...")
+print("[INFO] Loading face recognizer...")
 embedder = cv2.dnn.readNetFromTorch(embedding_model)
 recognizer_file = os.path.join(BASE_DIR, 'output/recognizer.pickle')
 le_file = os.path.join(BASE_DIR, 'output/le.pickle')
 recognizer = pickle.loads(open(recognizer_file, "rb").read())
 le = pickle.loads(open(le_file, "rb").read())
-print("[INFO] starting video stream...")
+print("[INFO] Starting video stream...")
 cap = cv2.VideoCapture(0)
 
 while (True):
@@ -32,7 +32,7 @@ while (True):
     detections = detector.forward()
     for i in range(0, detections.shape[2]):
         confidence = detections[0, 0, i, 2]
-        print("[DEBUG] confidence: ", float(confidence))
+        print("[DEBUG] Confidence: ", float(confidence))
         if confidence > 0.45:
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
