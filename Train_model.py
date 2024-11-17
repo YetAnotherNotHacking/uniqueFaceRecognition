@@ -3,6 +3,23 @@ from sklearn.svm import SVC
 import pickle
 import os
 
+def pickleJar():
+    if not os.path.exists("output"):
+        os.makedirs("output")
+    if not os.path.exists("dataset"):
+        os.makedirs("dataset")
+    if not os.path.exists("face_detector"):
+        os.makedirs("face_detector")
+    if not os.path.exists("output/embeddings.pickle"):
+        f = open("output/embeddings.pickle", "wb")
+        f.close()
+    if not os.path.exists("output/recognizer.pickle"):
+        f = open("output/recognizer.pickle", "wb")
+        f.close()
+    if not os.path.exists("output/le.pickle"):
+        f = open("output/le.pickle", "wb")
+        f.close()
+pickleJar()
 BASE_DIR = os.path.dirname(__file__)
 print("[INFO] BASE DIR: ", BASE_DIR)
 print("[INFO] Loading face embeddings...")
